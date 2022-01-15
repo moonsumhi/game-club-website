@@ -1,37 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
+<DOCTYPE HTML5>
+<html>
+  <head>
     <link href="{{ url_for('static', path='/login.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div class="wrap">
-        <div class="login">
-            <h2>Game Club Login</h2>
-            <div class="login_id">
-                <h4>ID</h4>
-                <input type="email" name="" id="" placeholder="ID">
-            </div>
-            <div class="login_pw">
-                <h4>Password</h4>
-                <input type="password" name="" id="" placeholder="Password">
-            </div>
-            <div class="login_etc">
-                <div class="checkbox">
-                <input type="checkbox" name="" id=""> Remember Me?
-                </div>
-                <div class="forgot_pw">
-                <a href="">Forgot Password?</a>
-            </div>
-            </div>
-            <div class="submit">
-                <input type="submit" value="submit">
-            </div>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+
+  <body width="100%" height="100%">
+    <form action="/login" name="userinfo" class="loginForm" method="post">
+      {% if msg %}
+        <div class="alert alert-success" role="alert">
+          {{ msg }}
         </div>
-    </div>
-</body>
+      {% endif %}
+      {% for error in errors %}
+        <div class="alert alert-danger" role="alert">
+          {{ error }}
+        </div>
+      {% endfor %}
+      <h2>Login</h2>
+      <div class="idForm">
+        <input type="text" name="user_id" class="id" placeholder="ID">
+      </div>
+      <div class="passForm">
+        <input type="password" name="password" class="pw" placeholder="PW">
+      </div>
+      <button type="submit" class="btn">
+        LOG IN
+      </button>
+      <div class="bottomText">
+        Don't you have ID? <a href="#">sign up</a>
+      </div>
+    </form>
+  </body>
 </html>
