@@ -16,12 +16,6 @@ templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 router = APIRouter()
 
 
-class NewUser(BaseModel):
-    user_id: str
-    name: str
-    password: str
-
-
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -29,18 +23,46 @@ def get_password_hash(password: str):
     return pwd_context.hash(password)
 
 
-@router.post("/sign_up")
-async def sign_up(new_user: NewUser):
+@router.get("/register")
+async def sign_up(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request})
+
+
+@router.post("/register")
+async def sign_up(request: Request):
+    form = await request.form()
+    user_id = form.get("user_id")
+    user_name = form.get("user_name")
+    password = form.get("password")
+    errors = []
+    if not user_id:
+        errors.append("Enter valid ID")
+    if not user_name:
+        errors.append("Enter valid name")
+    if not password:
+        errors.append("Enter valid password")
+
     user = UserModel(
-        user_id=new_user.user_id,
-        name=new_user.name,
-        password=get_password_hash(new_user.password),
+        user_id=user_id, name=user_name, password=get_password_hash(password),
     )
-    if await mongodb.engine.find_one(UserModel, UserModel.user_id == user.user_id):
-        raise HTTPException(status_code=400, detail="ID duplicated")
-    else:
-        await mongodb.engine.save(user)
-        return {"message": "New user created successfully"}
+
+    try:
+        if await mongodb.engine.find_one(UserModel, UserModel.user_id == user.user_id):
+            errors.append("ID duplicated")
+            return templates.TemplateResponse(
+                "register.html", {"request": request, "errors": errors}
+            )
+        else:
+            await mongodb.engine.save(user)
+            msg = "Registeration Success"
+            return templates.TemplateResponse(
+                "register.html", {"request": request, "msg": msg}
+            )
+    except:
+        errors.append("Something wrong")
+        return templates.TemplateResponse(
+            "register.html", {"request": request, "errors": errors}
+        )
 
 
 async def authenticate_user(user_id, password):
@@ -85,7 +107,7 @@ async def login(response: Response, request: Request):
             access_token = create_access_token(
                 data={"sub": user_id}, expires_delta=timedelta(minutes=30)
             )
-            msg = "Login successful"
+            msg = "Login success"
             response = templates.TemplateResponse(
                 "login.html", {"request": request, "msg": msg}
             )

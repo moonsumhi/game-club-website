@@ -6,7 +6,7 @@
   </head>
 
   <body width="100%" height="100%">
-    <form action="/login" name="userinfo" class="loginForm" method="post" autocomplete="new-password">
+    <form action="/register" name="userinfo" class="loginForm" method="post" autocomplete="new-password">
       {% if msg %}
         <div class="alert alert-success" role="alert">
           {{ msg }}
@@ -17,19 +17,21 @@
           {{ error }}
         </div>
       {% endfor %}
-      <h2>Login</h2>
+      <h2>Registration</h2>
       <div class="idForm">
         <input type="text" name="user_id" class="id" placeholder="ID" autocomplete="new-password">
+      </div>
+      <div class="nameForm">
+        <input type="text" name="user_name" class="name" placeholder="NICKNAME" autocomplete="new-password">
       </div>
       <div class="passForm">
         <input type="password" name="password" class="pw" placeholder="PW" autocomplete="new-password">
       </div>
-      <button type="submit" class="btn">
-        LOG IN
+      <button type="sign up" class="btn">
+        SIGN UP
       </button>
-
       <div class="bottomText">
-        Don't have an account? <a href="/register">sign up</a>
+        You got an account? <a href="/login">login</a>
       </div>
     </form>
   </body>

@@ -34,6 +34,12 @@ body {
   padding: 10px 10px;
 }
 
+.nameForm{
+  border-bottom: 2px solid #adadad;
+  margin: 30px;
+  padding: 10px 10px;
+}
+
 .passForm{
   border-bottom: 2px solid #adadad;
   margin: 30px;
@@ -41,6 +47,16 @@ body {
 }
 
 .id {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.name {
   width: 100%;
   border:none;
   outline:none;
