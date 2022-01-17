@@ -1,17 +1,12 @@
 <DOCTYPE HTML5>
 <html>
   <head>
-    <link href="{{ url_for('static', path='/login.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/css/login.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
 
   <body width="100%" height="100%">
-    <form action="/login" name="userinfo" class="loginForm" method="post" autocomplete="new-password">
-      {% if msg %}
-        <div class="alert alert-success" role="alert">
-          {{ msg }}
-        </div>
-      {% endif %}
+    <form action="/" name="userinfo" class="loginForm" method="post" autocomplete="new-password">
       {% for error in errors %}
         <div class="alert alert-danger" role="alert">
           {{ error }}
@@ -25,7 +20,7 @@
         <input type="password" name="password" class="pw" placeholder="PW" autocomplete="new-password">
       </div>
       <button type="submit" class="btn">
-        LOG IN
+        LOGIN
       </button>
 
       <div class="bottomText">

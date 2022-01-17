@@ -1,5 +1,4 @@
 from odmantic import Model
-from typing import List, Dict
 
 
 class UserModel(Model):

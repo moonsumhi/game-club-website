@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request, HTTPException, Depends
 from pydantic import BaseModel
-from app.routers import login
+from app.routers import login, base, posting
 from app.models.user import UserModel
 from app.models import mongodb
 from app.config import BASE_DIR, SECRET_KEY, ALGORITHM
@@ -25,6 +25,8 @@ app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="stat
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
 app.include_router(login.router)
+app.include_router(base.router)
+app.include_router(posting.router)
 
 
 @app.on_event("startup")

@@ -24,3 +24,4 @@ MONGO_DB_NAME = get_secret("MONGO_DB_NAME")
 MONGO_URL = get_secret("MONGO_URL")
 SECRET_KEY = get_secret("SECRET_KEY")
 ALGORITHM = get_secret("ALGORITHM")
+PAGES_PER_PAGE = 5
