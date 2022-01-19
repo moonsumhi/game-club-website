@@ -113,10 +113,9 @@ async def login(response: Response, request: Request):
     try:
         if await authenticate_user(user_id, password):
             access_token = create_access_token(
-                data={"sub": user_id}, expires_delta=timedelta(minutes=30)
+                data={"sub": user_id}, expires_delta=timedelta(hours=5)
             )
             response = templates.TemplateResponse("index.html", {"request": request})
-            # response.headers["Authorization"] = f"Bearer {access_token}"
             response.set_cookie(
                 key="access_token", value=f"Bearer {access_token}", httponly=True
             )

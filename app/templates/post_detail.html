@@ -45,6 +45,31 @@
                 </div>
             </div>
         </article>
+        <!-- comments -->
+        <hr class="mt-5">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <form action="/comments/?post_id={{ post.id }}" method="post" role="form">
+                        <p><mark>Your Answer</mark></p>
+                        <div class="mb-3">
+                            <textarea class="form-control" id="answer" rows="3" name="comment" autocomplete="new-password"></textarea>
+                        </div>
+                        <!-- Write button -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary mb-3">등록</button>
+                        </div>
+                    </form>
+                    <!-- comments load -->
+                    {% if post.comments %}
+                        {% for comment in post.comments|reverse %}
+                            <hr class="mt-5">
+                            <p>{{comment}}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
         <!-- Footer-->
         {% include 'footer.html' %}
         <!-- Bootstrap core JS-->

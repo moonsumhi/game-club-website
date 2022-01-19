@@ -9,6 +9,11 @@ class JWTBearer(HTTPBearer):
         super().__init__(auto_error=auto_error)
 
     async def __call__(self, access_token: Optional[str] = Cookie(None)):
+        if access_token is None:
+            raise HTTPException(
+                status_code=403, detail="Invalid token or expired token."
+            )
+
         scheme, access_token = access_token.split()
         if access_token:
             if not scheme == "Bearer":

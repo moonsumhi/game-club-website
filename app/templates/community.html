@@ -64,16 +64,18 @@
                             <span aria-hidden="true">&laquo;</span>
                           </a>
                         </li>
-                          {% if nums_of_pages %}
-                            {% for i in range(start, nums_of_pages) %}
-                                <li class="page-item"><a class="page-link" href="/board/?page_num={{i}}">{{ i }}</a></li>
-                            {% endfor %}
-                          {% endif %}
-                        <li class="page-item">
-                          <a class="page-link" href="/board/?page_num={{ current_page + 1 }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                          </a>
-                        </li>
+                        {% if nums_of_pages %}
+                          {% for i in range(start, nums_of_pages) %}
+                            <li class="page-item"><a class="page-link" href="/board/?page_num={{i}}">{{ i }}</a></li>
+                          {% endfor %}
+                        {% endif %}
+                        {% if nums_of_pages > current_page + 1 %}
+                            <li class="page-item">
+                              <a class="page-link" href="/board/?page_num={{ current_page + 1 }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                        {% endif %}
                       </ul>
                     </nav>
                 </div>

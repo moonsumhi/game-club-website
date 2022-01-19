@@ -95,3 +95,22 @@ async def create_post(request: Request):
     await mongodb.engine.save(post)
 
     return await get_board(request)
+
+
+@router.post("/comments")
+async def register_comments(request: Request, post_id: str):
+    form = await request.form()
+    comment = form.get("comment")
+
+    post_id = ObjectId(post_id)
+    post = await mongodb.engine.find_one(PostModel, PostModel.id == post_id)
+    if post.comments is None:
+        post.comments = [comment]
+    else:
+        post.comments.append(comment)
+
+    await mongodb.engine.save(post)
+
+    return templates.TemplateResponse(
+        "post_detail.html", {"request": request, "post": post}
+    )
